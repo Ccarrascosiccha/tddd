@@ -2,16 +2,28 @@ package edu.pe.cibertec;
 
 public class Triangle {
 
-    public enum TriangleType{
+    public enum TriangleType {
         EQUILATERAL,
-        ISOCELES,
+        ISOSCELES,
         SCALENE,
         INVALID
     }
+
     public TriangleType classify(int a, int b, int c) {
-        if (a ==b & b==c) {
+        if (!isValid(a, b, c)) {
+            return TriangleType.INVALID;
+        }
+        if (a == b && b == c) {
             return TriangleType.EQUILATERAL;
         }
-            return TriangleType.SCALENE;
+        if (a == b || b == c || a == c) {
+            return TriangleType.ISOSCELES;
+        }
+        return TriangleType.SCALENE;
+    }
+
+    private boolean isValid(int a, int b, int c) {
+        if (a <= 0 || b <= 0 || c <= 0) return false;
+        return (a < b + c) && (b < a + c) && (c < a + b);
     }
 }
